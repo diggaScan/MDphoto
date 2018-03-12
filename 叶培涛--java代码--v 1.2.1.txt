@@ -1,0 +1,112 @@
+import java.util.Scanner;
+
+public class AlmostPalindromeUtil {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        System.out.println(isPalindrome(input));
+    }
+
+    public static String isPalindrome(String string) {
+        String defRes = "NO";
+        char[] chars = string.toCharArray();
+        char[] flags = new char[4];// loacte postions of different pairs of chars.
+        int count = 0;// count how many pairs of chars are different.
+        int len = chars.length;
+        int start = 0;
+        int end = len - 1;
+        if (len < 2) {
+            return defRes;
+        } else if (len % 2 == 0) {
+            for (int i = 0; i < len / 2; i++) {
+                char s = chars[start];
+                char e = chars[end];
+
+                // get each literal from the comparing pair
+                if (s != e) {
+                    count++;
+
+                    if (count > 2) {
+                        return defRes;// if there are more than three pairs of chars which are different,
+                        // then this string is definitely not a palindrome.
+                    }
+                    flags[count - 1] = s;
+                    flags[count + 1] = e;
+
+                }
+                start++;
+                end--;
+            }
+            switch (count) {
+                case 0:
+                    return "YES";// the string we are testing is Palindrome already.
+                case 1:
+                    return defRes;
+
+                case 2:
+                    boolean a = flags[0] == flags[3] || flags[0] == flags[1];
+                    boolean b = flags[2] == flags[1] || flags[2] == flags[3];
+
+                    if (a && b) {
+                        return "YES";
+                    } else {
+
+                        return defRes;
+
+                    }
+                default:
+                    return defRes;
+
+
+            }
+        } else {
+            for (int i = 0; i < len / 2; i++) {
+                char s = chars[start];
+                char e = chars[end];
+
+                // get each literal from the comparing pair
+                if (s != e) {
+                    count++;
+
+                    if (count > 2) {
+                        return defRes;// if there are more than three pairs of chars which are different,
+                        // then this string is definitely not a palindrome.
+                    }
+                    flags[count - 1] = s;
+                    flags[count + 1] = e;
+                    
+                }
+                start++;
+                end--;
+            }
+            switch (count) {
+                case 0:
+                    return "YES";// the string we are testing is Palindrome already.
+                case 1:
+                    int mid = (len - 1) / 2;
+                   
+                    if (chars[mid] == flags[2]||chars[mid] == flags[0]) {
+                        return "YES";
+                    }
+                    return defRes;
+
+                case 2:
+                    boolean a = flags[0] == flags[3] || flags[0] == flags[1];
+                    boolean b = flags[2] == flags[1] || flags[2] == flags[3];
+
+                    if (a && b) {
+                        return "YES";
+                    } else {
+
+                        return defRes;
+
+                    }
+                default:
+                    return defRes;
+
+            }
+
+        }
+
+    }
+}
